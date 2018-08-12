@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>tap.ls - Documentation</title>
+    <title>array2object.ls - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">tap.ls</h1>
+    <h1 class="page-title">array2object.ls</h1>
     
 
     
@@ -50,39 +50,39 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import \sanctuary-def : $
+            <pre class="prettyprint source linenums"><code>import sanctuary: { flip, singleton, foldMap }
+import \sanctuary-def : $
 import \./define : definitors
 
-{ def } = definitors $
-
+{ def, a } = definitors $
 "
 /**
-* General purpose utilities
-* @namespace Utils
-*/
-/**
- * @function tap
- * @memberOf Utils#
- * @category Function
+ * @function array2object
+ * @param  {Any} value The value that will be assigned to every key
+ * @param  {String[]} keys An array of strings that will be used as keys
+ * @return {Object} an object containing all the provided strings as keys with the provided value
+ * @memberOf Array#
+ * @sig a -> [String] -> StrMap a
+ * @category Transformation
  * @description 
- * ```
- * tap :: (* -> *) -> a -> a
- * ```
- * Wraps a function and returns a new function that will take **any** parameter, pass it to the
- * wrapped function which return value will be ignored and ther returns the given value.
- * It could be useful to introduce logging into pipelines and/or execute functions with side effects without interfering the pipeline
- * @param  {Function} f A function to be wrapped by tap
- * @param  {Any} x      A value that will be passed to the wrapped function and then returned
- * @return {Any} Returns the input untouched
- */
- "
-function tap f, x
-    f x
-    x
+ * Takes a value and an array of strings and merges them into a single object.
+ * The provided value will be the value of all the keys.
+ * This function may be useful when building things like projections, where you have a list of fields you want to include
+ * and the semantics require an object with those fields set to a value (ej 1 or true)
+ * @example
+ * // This is an example using mongodb projection semantics
+ * const toProject = ['name','age']
+ * const projectFields = array2object (1)
+ * const projection = projectFields (toProject)
+ * // => {name: 1, age: 1}
+ * 
+ */"
+array2object = (value) ->
+    foldMap Object, (flip singleton) value
 
+definition = def \sanfu/array2object {} [a, ($.Array $.String), $.StrMap a ] array2object
 
-module.exports = def \sanfu/tap {} [$.AnyFunction, $.Any, $.Any] tap
-</code></pre>
+export {definition, array2object} </code></pre>
         </article>
     </section>
 
