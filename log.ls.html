@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>push.ls - Documentation</title>
+    <title>log.ls - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">push.ls</h1>
+    <h1 class="page-title">log.ls</h1>
     
 
     
@@ -50,36 +50,33 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import \sanctuary-def : $
-import \./define : definitors
-
-{ def } = definitors $
-
+            <pre class="prettyprint source linenums"><code>import \./apply : {apply}
 "
 /**
-* Utils targeted to array type
-* @namespace Array
-*/
-
-/**
- * @function push
- * @memberOf Array#
- * @category List
+ * @function log
+ * @param  {String} label What should be shown before logging to console
+ * @param  {Any} x Anything that will be logged to the console
+ * @return {Any} The latest argument `x` untouched
+ * @memberOf Utils#
+ * @category Function
+ * @sig String -> a -> a
  * @description 
- * ```
- * push :: [a] -> a -> [a]
- * ```
- * @param  {Array} arr The array to use as base to push any element
- * @param  {Any} x Any kind of item that will be pushed into the array
- * @return {Array} The array with a new element at the end
- */
-"
-function push arr, x
-    [...arr, x]
+ * This is a small utility that is not intended to be used for anything but tests or just fast checks.
+ * It uses `console.log` to output whatever it gets along with the provided label (AKA title), then it returns
+ * the same thing logged to console.
+ * For a better alternative, suitable for more serious tasks take a loop at {@link inspect}
+ * @example
+ * pipe([
+ *   log ('First step') // logs  {name: 'Joe', age: '19'} to console
+ *   , prop('name')
+ *   , log ('Second step') // logs `Joe` to console 
+ * ])({name: 'Joe', age: '19'})
+ */"
+log = (label,x) ->
+    apply console.log, [label, x]
 
 
-module.exports = def \sanfu/push {} [($.Array $.Any), $.Any] push
-</code></pre>
+export {log}</code></pre>
         </article>
     </section>
 

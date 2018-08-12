@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>push.ls - Documentation</title>
+    <title>takeAction.ls - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">push.ls</h1>
+    <h1 class="page-title">takeAction.ls</h1>
     
 
     
@@ -50,35 +50,47 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import \sanctuary-def : $
+            <pre class="prettyprint source linenums"><code>import sanctuary: { prop }
+import \sanctuary-def : $
 import \./define : definitors
 
-{ def } = definitors $
+{ def, a, b } = definitors $
 
 "
 /**
-* Utils targeted to array type
-* @namespace Array
-*/
-
-/**
- * @function push
- * @memberOf Array#
- * @category List
+ * @function takeAction
+ * @param  {Function} defaultAction The default action to execute if nothing matches
+ * @param  {Object} options An object containing functions to execute when the property of the object matches
+ * @param  {String} field A property on the input object to select wich action to take
+ * @param  {Object} item An object to execute an action on, looking at the provided field and searching for it on the actions map
+ * @return {Any} The return value of the selected option executed on the input object
+ * @memberOf Object#
+ * @sig (a -> b) -> StrMap (a -> b) -> String -> Object -> b
+ * @category Logic
  * @description 
- * ```
- * push :: [a] -> a -> [a]
- * ```
- * @param  {Array} arr The array to use as base to push any element
- * @param  {Any} x Any kind of item that will be pushed into the array
- * @return {Array} The array with a new element at the end
- */
-"
-function push arr, x
-    [...arr, x]
+ * Creates a function that takes an object and executes one action on it. 
+ * The action is selected looking at the value of the property `field` and searching for it on the map of actions. If no action matches then the default action is executed on the input object
+ * Please note that it only works on objects, so it is intended to execute actions on objects based on one of the object's properties
+ * @example
+ * const options = { admin: u => ({...u, superPowers: true })
+ *                 , user: ({...u, superPowers: false }) 
+ *                 };
+ * const defaultAction = x => ({...x, banned: true})
+ * const registerUser = takeAction (defaultAction) (options) ('role')
+ *
+ * registerUser ({name:'Daniel', age: 18, role: 'admin' }) // => {name:'Daniel', age: 18, role: 'admin', superPowers: true }
+ * registerUser ({name:'NoBody', age: 18, role:'no-role'}) // => {name:'NoBody', age: 18, role:'no-role', banned: true}
+ */"
+takeAction = (defaultAction, actions, field) ->
+    p = prop field
+    (msg) ->
+        action = actions[p msg] or defaultAction
+        action msg
 
+FN = $.Function [a, b]
+definition = def \sanfu/takeAction {} [FN, ($.StrMap FN), $.String, $.Object, b ] takeAction
 
-module.exports = def \sanfu/push {} [($.Array $.Any), $.Any] push
+export {definition, takeAction}
 </code></pre>
         </article>
     </section>
