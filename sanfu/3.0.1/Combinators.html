@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Combinators - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="scripts/search.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<header>
+    <a href="index.html"><strong>Sanfu 3.0.1</strong></a><ul><li><a href="https://npm.runkit.com/sanfu">Try</a></li><li><a href="https://danielo515.github.io/sanfu/">Latest Docs</a></li><li><a href="https://github.com/danielo515/sanfu">GitHub</a></li><li><a href="https://gitter.im/sanfu/Lobby">Discuss</a></li></ul>
+</header>
+
+<nav>
+    <div id="filter">
+        <input name="search" type="search" placeholder="Filter" />
+    </div>
+    <h3>Modules</h3><ul><li><a href="module-Sanfu.html">Sanfu</a></li></ul><h3></h3><ul><li><a href="Array.html">Array</a><ul class='methods'><li data-type='method'><a href="Array.html#array2object">array2object<span data-category="List" class="label label-category">Transformation</span> </a></li><li data-type='method'><a href="Array.html#indexBy">indexBy<span data-category="List" class="label label-category">List</span> </a></li><li data-type='method'><a href="Array.html#push">push<span data-category="List" class="label label-category">List</span> </a></li></ul></li><li><a href="Combinators.html">Combinators</a><ul class='methods'><li data-type='method'><a href="Combinators.html#starling">starling<span data-category="List" class="label label-category">Function</span> </a></li></ul></li><li><a href="Object.html">Object</a><ul class='methods'><li data-type='method'><a href="Object.html#pick">pick<span data-category="List" class="label label-category">Object</span> </a></li><li data-type='method'><a href="Object.html#select">select<span data-category="List" class="label label-category">Logic</span> </a></li><li data-type='method'><a href="Object.html#takeAction">takeAction<span data-category="List" class="label label-category">Logic</span> </a></li></ul></li><li><a href="Utils.html">Utils</a><ul class='methods'><li data-type='method'><a href="Utils.html#log">log<span data-category="List" class="label label-category">Function</span> </a></li><li data-type='method'><a href="Utils.html#spy">spy<span data-category="List" class="label label-category">Function</span> </a></li><li data-type='method'><a href="Utils.html#tap">tap<span data-category="List" class="label label-category">Function</span> </a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Combinators</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        Combinators
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="starling.ls.html">starling.ls</a>, <a href="starling.ls.html#line7">line 7</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+    <div id="starling" class="section-id"></div>
+    <h4 class="name"><span class="type-signature"></span>starling<span class="signature">(f, g, a)</span><span class="type-signature"> &rarr; {Any}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="starling.ls.html">starling.ls</a>, <a href="starling.ls.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-sig">Signature:</dt>
+    <dd class="tag-sig">
+        <ul>
+            
+              <li><code>(a -> b -> c) -> (a -> b) -> a -> c</code></li>
+            
+        </ul>
+    </dd>
+    
+    
+
+    
+
+    
+
+    
+    <dt class="tag-category">Category:</dt>
+    <dd class="tag-category">
+        <ul><li><i>Function</i></li></ul>
+    </dd>
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>The staring combinator takes a binary function, an unary function and a value. 
+It then applies the first function to the provided value and the result of applying the second function to that same value</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const add = a => b => a + bconst something = a => a * 9S (add) (something) (2) // => 20</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>f</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Any binary function</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>g</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Any unary function</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Any</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Any value</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Any</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Aug 23 2018 06:56:54 GMT+0200 (DST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
