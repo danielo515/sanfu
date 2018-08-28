@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>log.ls - Documentation</title>
+    <title>Combinators - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -40,45 +40,109 @@
 
 <div id="main">
     
-    <h1 class="page-title">log.ls</h1>
+    <h1 class="page-title">Combinators</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>import \./apply : {apply}
-"
-/**
- * @function log
- * @param  {String} label What should be shown before logging to console
- * @param  {Any} x Anything that will be logged to the console
- * @return {Any} The latest argument `x` untouched
- * @memberOf Utils#
- * @category Function
- * @sig String -> a -> a
- * @description 
- * This is a small utility that is not intended to be used for anything but tests or just fast checks.
- * It uses `console.log` to output whatever it gets along with the provided label (AKA title), then it returns
- * the same thing logged to console.
- * For a better alternative, suitable for more serious tasks take a loop at {@link inspect}
- * @example
- * pipe([
- *   log ('First step') // logs  {name: 'Joe', age: '19'} to console
- *   , prop('name')
- *   , log ('Second step') // logs `Joe` to console 
- * ])({name: 'Joe', age: '19'})
- */"
-log = (label,x) ->
-    apply console.log, [label, x]
+        <h2>
+            <span class="ancestors"><a href="module-Sanfu.html">Sanfu</a>~</span>
+        
+        Combinators
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.ls.html">index.ls</a>, <a href="index.ls.html#line4">line 4</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
 
 
-export {log}</code></pre>
-        </article>
-    </section>
+
+
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
