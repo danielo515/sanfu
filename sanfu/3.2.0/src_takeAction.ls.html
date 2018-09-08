@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Sanfu 3.2.0 - Documentation</title>
+    <title>src/takeAction.ls - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Sanfu 3.2.0</h1>
+    <h1 class="page-title">src/takeAction.ls</h1>
     
 
     
@@ -48,29 +48,52 @@
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import sanctuary: { prop }
+import \sanctuary-def : $
+import \./define : definitors
 
+{ def, a, b } = definitors $
 
+"
+/**
+ * @function takeAction
+ * @param  {Function} defaultAction The default action to execute if nothing matches
+ * @param  {Object} options An object containing functions to execute when the property of the object matches
+ * @param  {String} field A property on the input object to select wich action to take
+ * @param  {Object} item An object to execute an action on, looking at the provided field and searching for it on the actions map
+ * @return {Any} The return value of the selected option executed on the input object
+ * @memberOf Object#
+ * @sig (a -> b) -> StrMap (a -> b) -> String -> Object -> b
+ * @category Logic
+ * @description 
+ * Creates a function that takes an object and executes one action on it. 
+ * The action is selected looking at the value of the property `field` and searching for it on the map of actions. If no action matches then the default action is executed on the input object
+ * Please note that it only works on objects, so it is intended to execute actions on objects based on one of the object's properties
+ * @example
+ * const options = { admin: u => ({...u, superPowers: true })
+ *                 , user: ({...u, superPowers: false }) 
+ *                 };
+ * const defaultAction = x => ({...x, banned: true})
+ * const registerUser = takeAction (defaultAction) (options) ('role')
+ *
+ * registerUser ({name:'Daniel', age: 18, role: 'admin' }) // => {name:'Daniel', age: 18, role: 'admin', superPowers: true }
+ * registerUser ({name:'NoBody', age: 18, role:'no-role'}) // => {name:'NoBody', age: 18, role:'no-role', banned: true}
+ */"
+takeAction = (defaultAction, actions, field) ->
+    p = prop field
+    (msg) ->
+        action = actions[p msg] or defaultAction
+        action msg
 
+FN = $.Function [a, b]
+definition = def \sanfu/takeAction {} [FN, ($.StrMap FN), $.String, $.Object, b ] takeAction
 
-
-
-
-
-
-    
-
-
-    <section class="readme">
-        <article><h1>SANFU: Sanctuary Functional utilities</h1><p>We do love <a href="https://sanctuary-js.org">sanctuary</a>, don't you ?
-But sometimes we miss some utilities, and, you guessed, that's this library is all about.</p>
-<p>This library contains a random but useful list of functional utils that are indeed type checked.
-Just as sanctuary does, all functions checks that their input and their output is correct while you are developing.
-When your code runs on production (<code>NODE_ENV=production</code>) type-checking is deactivated and you will get raw performance.</p>
-<p>All our functions are curried, not partially applicable, curried. That means that every function takes just one argument and returns a function that takes the next argument until all arguments have been provided. If you are used to ramda this may shock you, but for performance and consistency we think this is the best. Also, if you find this annoying why don't you have a look at our helping babel plugins ? they make calling and creating curried functions a breeze: <a href="https://www.npmjs.com/package/babel-plugin-curry-all">curry all</a> and <a href="https://www.npmjs.com/package/babel-plugin-all-curried">all curried</a>. This library uses them!</p>
-<p>This library is very new, and we are just adding utilities as we need them, but if you miss anything don't hesitate to open an issue and tell us.</p></article>
+export {definition, takeAction}
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

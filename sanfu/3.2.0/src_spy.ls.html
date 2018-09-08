@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Sanfu 3.2.0 - Documentation</title>
+    <title>src/spy.ls - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Sanfu 3.2.0</h1>
+    <h1 class="page-title">src/spy.ls</h1>
     
 
     
@@ -48,29 +48,43 @@
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import \./define : definitors
+import \sanctuary-def : $
+import \./apply : {apply}
 
+{ def } = definitors $
+"
+/**
+ * @function spy
+ * @param  {Logger} logger A logger instance to use
+ * @param  {String} label Which label should be added to each log output
+ * @return {Any} The provided value with fn applied to it
+ * @memberOf Utils#
+ * @sig Function f => Logger -> String -> (a -> b) -> a -> b
+ * @category Function
+ * @description 
+ * This function is inteded to be used to wrap other unary functions and take a look on what are they getting as input.
+ * The input will be logged using the provided logger and the inspected function will be applied to it, the result is what will be returned
+ * Please note that the wrapped functions must be unary.
+ * @example
+ * const addOne = a => a + 1
+ * const divedeBy2 = a => a / 2
+ * pipe([
+ * spy('About to add one:')(addOne) // When executed logs 1 then returns 2
+ * , spy('About to divide:')(divideBy2) // When executed logs 2 then returns 1
+ * ])(1)
+ */ "
+spy = (logger,label, fn, x) ->
+    apply logger, [label, x]
+    fn x
 
+exporting = def \sanfu/spy {} [$.AnyFunction, $.String, $.AnyFunction, $.Any, $.Any] spy 
 
-
-
-
-
-
-
-    
-
-
-    <section class="readme">
-        <article><h1>SANFU: Sanctuary Functional utilities</h1><p>We do love <a href="https://sanctuary-js.org">sanctuary</a>, don't you ?
-But sometimes we miss some utilities, and, you guessed, that's this library is all about.</p>
-<p>This library contains a random but useful list of functional utils that are indeed type checked.
-Just as sanctuary does, all functions checks that their input and their output is correct while you are developing.
-When your code runs on production (<code>NODE_ENV=production</code>) type-checking is deactivated and you will get raw performance.</p>
-<p>All our functions are curried, not partially applicable, curried. That means that every function takes just one argument and returns a function that takes the next argument until all arguments have been provided. If you are used to ramda this may shock you, but for performance and consistency we think this is the best. Also, if you find this annoying why don't you have a look at our helping babel plugins ? they make calling and creating curried functions a breeze: <a href="https://www.npmjs.com/package/babel-plugin-curry-all">curry all</a> and <a href="https://www.npmjs.com/package/babel-plugin-all-curried">all curried</a>. This library uses them!</p>
-<p>This library is very new, and we are just adding utilities as we need them, but if you miss anything don't hesitate to open an issue and tell us.</p></article>
+export spy: exporting</code></pre>
+        </article>
     </section>
-
-
 
 
 

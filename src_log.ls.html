@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Sanfu 3.2.0 - Documentation</title>
+    <title>src/log.ls - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Sanfu 3.2.0</h1>
+    <h1 class="page-title">src/log.ls</h1>
     
 
     
@@ -48,29 +48,37 @@
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import \./apply : {apply}
+"
+/**
+ * @function log
+ * @param  {String} label What should be shown before logging to console
+ * @param  {Any} x Anything that will be logged to the console
+ * @return {Any} The latest argument `x` untouched
+ * @memberOf Utils#
+ * @category Function
+ * @sig String -> a -> a
+ * @description 
+ * This is a small utility that is not intended to be used for anything but tests or just fast checks.
+ * It uses `console.log` to output whatever it gets along with the provided label (AKA title), then it returns
+ * the same thing logged to console.
+ * For a better alternative, suitable for more serious tasks take a loop at {@link inspect}
+ * @example
+ * pipe([
+ *   log ('First step') // logs  {name: 'Joe', age: '19'} to console
+ *   , prop('name')
+ *   , log ('Second step') // logs `Joe` to console 
+ * ])({name: 'Joe', age: '19'})
+ */"
+log = (label,x) ->
+    apply console.log, [label, x]
 
 
-
-
-
-
-
-
-
-    
-
-
-    <section class="readme">
-        <article><h1>SANFU: Sanctuary Functional utilities</h1><p>We do love <a href="https://sanctuary-js.org">sanctuary</a>, don't you ?
-But sometimes we miss some utilities, and, you guessed, that's this library is all about.</p>
-<p>This library contains a random but useful list of functional utils that are indeed type checked.
-Just as sanctuary does, all functions checks that their input and their output is correct while you are developing.
-When your code runs on production (<code>NODE_ENV=production</code>) type-checking is deactivated and you will get raw performance.</p>
-<p>All our functions are curried, not partially applicable, curried. That means that every function takes just one argument and returns a function that takes the next argument until all arguments have been provided. If you are used to ramda this may shock you, but for performance and consistency we think this is the best. Also, if you find this annoying why don't you have a look at our helping babel plugins ? they make calling and creating curried functions a breeze: <a href="https://www.npmjs.com/package/babel-plugin-curry-all">curry all</a> and <a href="https://www.npmjs.com/package/babel-plugin-all-curried">all curried</a>. This library uses them!</p>
-<p>This library is very new, and we are just adding utilities as we need them, but if you miss anything don't hesitate to open an issue and tell us.</p></article>
+export {log}</code></pre>
+        </article>
     </section>
-
-
 
 
 

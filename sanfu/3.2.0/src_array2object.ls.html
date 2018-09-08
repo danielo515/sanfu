@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Sanfu 3.2.0 - Documentation</title>
+    <title>src/array2object.ls - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Sanfu 3.2.0</h1>
+    <h1 class="page-title">src/array2object.ls</h1>
     
 
     
@@ -48,29 +48,43 @@
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import sanctuary: { flip, singleton, foldMap }
+import \sanctuary-def : $
+import \./define : definitors
 
+{ def, a } = definitors $
+"
+/**
+ * @function array2object
+ * @param  {Any} value The value that will be assigned to every key
+ * @param  {String[]} keys An array of strings that will be used as keys
+ * @return {Object} an object containing all the provided strings as keys with the provided value
+ * @memberOf Array#
+ * @sig a -> [String] -> StrMap a
+ * @category Transformation
+ * @description 
+ * Takes a value and an array of strings and merges them into a single object.
+ * The provided value will be the value of all the keys.
+ * This function may be useful when building things like projections, where you have a list of fields you want to include
+ * and the semantics require an object with those fields set to a value (ej 1 or true)
+ * @example
+ * // This is an example using mongodb projection semantics
+ * const toProject = ['name','age']
+ * const projectFields = array2object (1)
+ * const projection = projectFields (toProject)
+ * // => {name: 1, age: 1}
+ * 
+ */"
+array2object = (value) ->
+    foldMap Object, (flip singleton) value
 
+definition = def \sanfu/array2object {} [a, ($.Array $.String), $.StrMap a ] array2object
 
-
-
-
-
-
-
-    
-
-
-    <section class="readme">
-        <article><h1>SANFU: Sanctuary Functional utilities</h1><p>We do love <a href="https://sanctuary-js.org">sanctuary</a>, don't you ?
-But sometimes we miss some utilities, and, you guessed, that's this library is all about.</p>
-<p>This library contains a random but useful list of functional utils that are indeed type checked.
-Just as sanctuary does, all functions checks that their input and their output is correct while you are developing.
-When your code runs on production (<code>NODE_ENV=production</code>) type-checking is deactivated and you will get raw performance.</p>
-<p>All our functions are curried, not partially applicable, curried. That means that every function takes just one argument and returns a function that takes the next argument until all arguments have been provided. If you are used to ramda this may shock you, but for performance and consistency we think this is the best. Also, if you find this annoying why don't you have a look at our helping babel plugins ? they make calling and creating curried functions a breeze: <a href="https://www.npmjs.com/package/babel-plugin-curry-all">curry all</a> and <a href="https://www.npmjs.com/package/babel-plugin-all-curried">all curried</a>. This library uses them!</p>
-<p>This library is very new, and we are just adding utilities as we need them, but if you miss anything don't hesitate to open an issue and tell us.</p></article>
+export {definition, array2object} </code></pre>
+        </article>
     </section>
-
-
 
 
 

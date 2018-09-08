@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Sanfu 3.2.0 - Documentation</title>
+    <title>src/starling.ls - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Sanfu 3.2.0</h1>
+    <h1 class="page-title">src/starling.ls</h1>
     
 
     
@@ -48,29 +48,42 @@
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import \sanctuary-def : $
+import \./define : definitors
 
+{ Fn, a, b, c, def } = definitors $
 
+"
+/**
+ * @function starling
+ * @param  {Function} f Any binary function
+ * @param  {Function} g Any unary function
+ * @param  {Any} a Any value
+ * @return {Any} 
+ * @memberOf Combinators#
+ * @sig (a -> b -> c) -> (a -> b) -> a -> c
+ * @category Function
+ * @description 
+ * The staring combinator takes a binary function, an unary function and a value. 
+ * It then applies the first function to the provided value and the result of applying the second function to that same value
+ * @example
+ * const add = a => b => a + b
+ * const something = a => a * 9
+ * S (add) (something) (2) 
+ * // => 20
+ * 
+ */
+"
+function starling f, g, a
+    f a, g a
 
+S = def \sanfu/starling {} [ (Fn a, (Fn b, c)) , (Fn a, b) , a , c ] starling
 
-
-
-
-
-
-    
-
-
-    <section class="readme">
-        <article><h1>SANFU: Sanctuary Functional utilities</h1><p>We do love <a href="https://sanctuary-js.org">sanctuary</a>, don't you ?
-But sometimes we miss some utilities, and, you guessed, that's this library is all about.</p>
-<p>This library contains a random but useful list of functional utils that are indeed type checked.
-Just as sanctuary does, all functions checks that their input and their output is correct while you are developing.
-When your code runs on production (<code>NODE_ENV=production</code>) type-checking is deactivated and you will get raw performance.</p>
-<p>All our functions are curried, not partially applicable, curried. That means that every function takes just one argument and returns a function that takes the next argument until all arguments have been provided. If you are used to ramda this may shock you, but for performance and consistency we think this is the best. Also, if you find this annoying why don't you have a look at our helping babel plugins ? they make calling and creating curried functions a breeze: <a href="https://www.npmjs.com/package/babel-plugin-curry-all">curry all</a> and <a href="https://www.npmjs.com/package/babel-plugin-all-curried">all curried</a>. This library uses them!</p>
-<p>This library is very new, and we are just adding utilities as we need them, but if you miss anything don't hesitate to open an issue and tell us.</p></article>
+module.exports = S</code></pre>
+        </article>
     </section>
-
-
 
 
 
